@@ -2,8 +2,31 @@ import os
 from sys import argv
 from magic import Magic
 from shutil import move
+from customtkinter import *
 
-# "/mnt/c/Users/MTaha/Downloads/TestDir"
+app = CTk()
+app.geometry("300x400")
+
+def switch_mode():
+    switchState = state.get()
+    if switchState == 1:
+        app._set_appearance_mode("dark")
+    else:
+        app._set_appearance_mode("light")
+
+btnSort = CTkButton(master=app, text="Sort", corner_radius=32, border_width=2)
+
+label = CTkLabel(master=app, text="Click To Sort Files", font=("Arial", 20),)
+
+state = IntVar()
+
+switch = CTkSwitch(master=app, text="Dark Mode", variable=state, command=switch_mode)
+
+btnSort.place(relx=0.5, rely=0.5, anchor="center")
+switch.place(relx=0.5, rely=0.6, anchor="center")
+label.place(relx=0.5, rely=0.4, anchor="center")
+
+app.mainloop()
 
 # Function that obtains file type of file at a path
 def get_file_type(filePath):
