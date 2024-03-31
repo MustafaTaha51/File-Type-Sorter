@@ -5,12 +5,6 @@ from shutil import move
 from customtkinter import *
 from tkinter import filedialog
 
-selectedPath = None
-
-app = CTk()
-app.geometry("300x400")
-state = IntVar()
-
 # Function for switching between light and dark mode
 def switch_mode():
     # Get button state
@@ -26,17 +20,16 @@ def switch_mode():
 # Function that prompts user to input a path and then runs sorting function
 def prompt_and_sort():
     # Obtain file path from user
-    global filePath
-    filePath = filedialog.askdirectory()
+    selectedPath = filedialog.askdirectory()
 
     # Check if user gave input or cancelled
-    if not filePath:
+    if not selectedPath:
         print("Path was not selected")
     else:
-        print(f"Selected path: {filePath}")
+        print(f"Selected path: {selectedPath}")
 
         # Sort files at path
-        sort_files(filePath)
+        sort_files(selectedPath)
 
 
 # Function that obtains file type of file at a path
@@ -97,7 +90,12 @@ def sort_files(selectedPath):
 
     print("Sorted!")
 
+# Initialising GUI with 300x400 dimensions and state variable for dark mode switch
+app = CTk()
+app.geometry("300x400")
+state = IntVar()
 
+# Creating and placing elements
 btnSort = CTkButton(master=app, text="Sort", corner_radius=32, border_width=2, command=prompt_and_sort)
 label = CTkLabel(master=app, text="Click To Sort Files", font=("Arial", 20),)
 switch = CTkSwitch(master=app, text="Dark Mode", variable=state, command=switch_mode)
@@ -107,10 +105,3 @@ switch.place(relx=0.5, rely=0.6, anchor="center")
 label.place(relx=0.5, rely=0.4, anchor="center")
 
 app.mainloop()
-
-
-
-
-
-
-
