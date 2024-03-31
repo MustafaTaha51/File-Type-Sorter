@@ -1,5 +1,4 @@
 import os
-from sys import argv
 from magic import Magic
 from shutil import move
 from customtkinter import *
@@ -11,9 +10,15 @@ def switch_mode():
     switchState = state.get()
 
     # Switch mode based on current button state
-    if switchState == 1:
+    if switchState:
+        btnSort.configure(bg_color=grey)
+        switch.configure(bg_color=grey, text_color="white")
+        label.configure(fg_color=grey, text_color="white")
         app._set_appearance_mode("dark")
     else:
+        btnSort.configure(bg_color=kindaWhite)
+        switch.configure(bg_color=kindaWhite, text_color="black")
+        label.configure(fg_color=kindaWhite, text_color="black")
         app._set_appearance_mode("light")
 
 
@@ -90,10 +95,14 @@ def sort_files(selectedPath):
 
     print("Sorted!")
 
-# Initialising GUI with 300x400 dimensions and state variable for dark mode switch
+# Initialising GUI with 300x400 dimensions and variables for dark mode switch
 app = CTk()
 app.geometry("300x400")
 state = IntVar()
+
+# Hexadecimal values for grey and light background
+grey = "#282424"
+kindaWhite = "#f0ecec"
 
 # Creating and placing elements
 btnSort = CTkButton(master=app, text="Sort", corner_radius=32, border_width=2, command=prompt_and_sort)
